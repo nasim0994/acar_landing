@@ -50,7 +50,7 @@ export default {
           5: "hsl(var(--chart-5))",
         },
         "base-100": "#fff",
-        neutral: "#3d3d3f",
+        neutral: "#222",
         "neutral-content": "#636363",
       },
     },
