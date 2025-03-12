@@ -1,5 +1,4 @@
 import { MdArrowDropUp, MdDelete } from "react-icons/md";
-import Products from "./Products";
 import { useAppDispatch, useAppSelector } from "@/redux/hook/hooks";
 import { removeFromCart } from "@/redux/features/cart/cartSlice";
 import { useState } from "react";
@@ -22,35 +21,35 @@ export default function Orders() {
             অর্ডার করতে আপনার সঠিক তথ্য দিয়ে নিচের ফর্মটি সম্পূর্ণ পূরন করুন।
           </h2>
 
-          <form className="mt-6 grid md:grid-cols-2 gap-6 lg:gap-16">
+          <form className="mt-6 grid md:grid-cols-2 gap-6 lg:gap-10 form_group">
             <div>
-              <h2 className="text-lg font-medium">Billing Details</h2>
+              <h2 className="text-neutral font-medium">Billing Details</h2>
               <br />
               <div className="flex flex-col gap-3">
                 <div>
                   <small className="text-neutral-content">
-                    Enter your name *
+                    আপনার নাম লিখুন *
                   </small>
                   <input type="text" name="name" required />
                 </div>
 
                 <div>
                   <small className="text-neutral-content">
-                    Enter your mobile number *
+                    আপনার মোবাইল নাম্বারটি লিখুন *
                   </small>
                   <input type="text" name="number" required />
                 </div>
 
                 <div>
                   <small className="text-neutral-content">
-                    Enter your city *
+                    আপনার শহরের নাম লিখুন *
                   </small>
                   <input type="text" name="city" required />
                 </div>
 
                 <div>
                   <small className="text-neutral-content">
-                    Enter your full address *
+                    আপনার সম্পূর্ণ ঠিকানা লিখুন *
                   </small>
                   <textarea name="address" rows={4} required></textarea>
                 </div>
@@ -58,7 +57,7 @@ export default function Orders() {
             </div>
 
             <div>
-              <h2 className="text-lg font-medium">Your Order</h2>
+              <h2 className="font-medium text-neutral">Your Order</h2>
               <div>
                 {carts.map((product) => (
                   <div
@@ -109,41 +108,47 @@ export default function Orders() {
                   <p className="text-neutral-content">Shipping</p>
                   <div className="text-neutral">
                     <div className="flex items-center">
-                      <input
-                        id="insideDhaka"
-                        type="radio"
-                        // value={shippingCharge?.insideDhaka}
-                        name="shipping"
-                        className="w-4 h-4"
-                        // onClick={() =>
-                        //   setShipping(shippingCharge?.insideDhaka)
-                        // }
-                        // checked={shipping === shippingCharge?.insideDhaka}
-                      />
+                      <div>
+                        <input
+                          id="insideDhaka"
+                          type="radio"
+                          // value={shippingCharge?.insideDhaka}
+                          name="shipping"
+                          className="w-4 h-4"
+                          // onClick={() =>
+                          //   setShipping(shippingCharge?.insideDhaka)
+                          // }
+                          // checked={shipping === shippingCharge?.insideDhaka}
+                        />
+                      </div>
+
                       <label
                         htmlFor="insideDhaka"
-                        className="ms-2 text-sm font-medium"
+                        className="ms-2 text-sm font-medium whitespace-nowrap"
                       >
-                        Inside Dhaka: 80 TK
+                        ঢাকার বাহিরে: 80 টাকা
                       </label>
                     </div>
                     <div className="flex items-center">
-                      <input
-                        id="outsideDhaka"
-                        type="radio"
-                        // value={shippingCharge?.outsideDhaka}
-                        name="shipping"
-                        className="w-4 h-4"
-                        // onClick={() =>
-                        //   setShipping(shippingCharge?.outsideDhaka)
-                        // }
-                        // checked={shipping === shippingCharge?.outsideDhaka}
-                      />
+                      <div>
+                        <input
+                          id="outsideDhaka"
+                          type="radio"
+                          // value={shippingCharge?.outsideDhaka}
+                          name="shipping"
+                          className="w-4 h-4"
+                          // onClick={() =>
+                          //   setShipping(shippingCharge?.outsideDhaka)
+                          // }
+                          // checked={shipping === shippingCharge?.outsideDhaka}
+                        />
+                      </div>
+
                       <label
                         htmlFor="outsideDhaka"
-                        className="ms-2 text-sm font-medium"
+                        className="ms-2 text-sm font-medium whitespace-nowrap"
                       >
-                        Outside Dhaka: 130 TK
+                        ঢাকার ভিতরে: 130 টাকা
                       </label>
                     </div>
                   </div>
@@ -154,10 +159,10 @@ export default function Orders() {
                 </div>
 
                 <div className="mt-4 bg-gray-100 p-4 rounded text-neutral-content">
-                  <h2>Cash on delivery</h2>
+                  <h2>ক্যাশ অন ডেলিভারি</h2>
                   <div className="relative bg-gray-200 p-3 rounded mt-3">
                     <p className="text-sm">
-                      You can pay the delivery man after receiving the product.
+                      পণ্য হাতে পেয়ে ডেলিভারি ম্যানকে পেমেন্ট করতে পারবেন।
                     </p>
 
                     <div className="absolute -top-8 left-6">
@@ -171,7 +176,7 @@ export default function Orders() {
                     {/* {isLoading
                           ? "Loading..."
                           : `Confirm order - ${calculateTotal() + shipping} TK`} */}{" "}
-                    Confirm order - {total} TK
+                    অর্ডার কনফার্ম করুন - {total} টাকা
                   </button>
                 </div>
               </div>

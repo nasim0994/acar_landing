@@ -11,7 +11,7 @@ export default function Hero() {
             </Link>
 
             <a href="#order" className="primary_btn text-sm">
-              অর্ডার করুন
+              অর্ডার করতে ক্লিক করুন
             </a>
           </div>
         </div>

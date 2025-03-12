@@ -57,7 +57,7 @@ export default function WhyChose() {
             href="#order"
             className="bg-primary text-base-100 px-4 py-2 rounded"
           >
-            এখানে অর্ডার করুন
+            অর্ডার করতে ক্লিক করুন
           </a>
         </div>
       </div>
