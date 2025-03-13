@@ -18,6 +18,11 @@ export const verifyToken = catchAsync(
       config.JWT_ACCESS_SECRET as string,
     ) as JwtPayload;
 
+    // check token expiration
+    if (decoded.exp && Date.now() >= decoded.exp * 1000)
+      throw new AppError(httpStatus.UNAUTHORIZED, 'Token is expired !');
+
+    // find user by username
     const user = await User.findOne({ username: decoded?.username });
 
     if (!user)

@@ -1,7 +1,7 @@
 import AdminLayout from "@/layouts/AdminLayout";
 import AdminProtectedRoute from "@/layouts/AdminProtectedRoute";
 import Dashboard from "@/pages/admin/Dashboard";
-import Login from "@/pages/main/Login";
+import { Navigate } from "react-router-dom";
 
 export const adminRoutes = {
   path: "/admin",
@@ -12,8 +12,8 @@ export const adminRoutes = {
   ),
   children: [
     {
-      path: "login",
-      element: <Login />,
+      index: true,
+      element: <Navigate to="/admin/dashboard" replace />,
     },
     {
       path: "dashboard",

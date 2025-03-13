@@ -36,7 +36,6 @@ export const loginUserService = async (payload: ILoginUser) => {
     throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched');
 
   //create token and sent to the  client
-
   const jwtPayload = {
     username: user.username,
     role: user.role,

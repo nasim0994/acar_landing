@@ -25,7 +25,7 @@ export const loginUser: RequestHandler = catchAsync(async (req, res) => {
   res.status(200).json({
     success: true,
     statusCode: httpStatus.OK,
-    message: 'User is logged in succesfully!',
+    message: 'User is logged in successfully!',
     data: {
       token: accessToken,
       user,

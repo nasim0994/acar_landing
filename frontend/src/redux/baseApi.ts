@@ -1,9 +1,9 @@
 import {
   BaseQueryApi,
   BaseQueryFn,
+  createApi,
   DefinitionType,
   FetchArgs,
-  createApi,
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
 import { RootState } from "./store";
@@ -12,7 +12,6 @@ const url = import.meta.env.VITE_BACKEND_URL + "/api";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: url,
-  credentials: "include",
   prepareHeaders: async (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
     if (token) {
@@ -27,30 +26,24 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   BaseQueryApi,
   DefinitionType
 > = async (args, api, extraOptions): Promise<any> => {
-  let result = await baseQuery(args, api, extraOptions);
+  const result = await baseQuery(args, api, extraOptions);
+  const token = (api.getState() as RootState).auth.token;
 
-  if (result?.error?.status === 401) {
-    const res = await fetch(`${url}/auth/refresh-token`, {
-      method: "POST",
-      credentials: "include",
+  if (token) {
+    const res = await fetch(url + "/auth/me", {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     });
-
     const data = await res.json();
 
-    if (data?.data?.accessToken) {
-      const user = (api.getState() as RootState).auth.loggedUser;
-
-      api.dispatch(
-        userLoggedIn({
-          user,
-          token: data.data.accessToken,
-        })
-      );
-
-      result = await baseQuery(args, api, extraOptions);
+    if (data?.success) {
+      api.dispatch(userLoggedIn({ token, user: data.data }));
     } else {
       api.dispatch(userLogout());
     }
+  } else {
+    api.dispatch(userLogout());
   }
 
   return result;

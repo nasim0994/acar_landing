@@ -1,7 +1,7 @@
-
+import { useGetAllProductQuery } from "@/redux/features/product/productApi";
 
 export default function Dashboard() {
-  return (
-    <div>Dashboard</div>
-  )
+  const { data: product } = useGetAllProductQuery({});
+
+  return <div>Dashboard</div>;
 }

@@ -1,10 +1,9 @@
 import { FormEvent, useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "@/redux/hook/hooks";
 import { useLoginMutation } from "@/redux/features/user/authApi";
-import { verifyToken } from "@/utils/verifyToken";
-import { TUser, userLoggedIn } from "@/redux/features/user/authSlice";
+import { userLoggedIn } from "@/redux/features/user/authSlice";
 import { TResponse } from "@/interface/globalInterface";
 
 export default function Login() {
@@ -28,25 +27,29 @@ export default function Login() {
     e.preventDefault();
 
     const form = e.target as HTMLFormElement;
-    const email = form.email.value;
+    const username = form.userName.value;
     const password = form.password.value;
 
     const loginInfo = {
-      email,
+      username,
       password,
     };
 
     const res = (await login(loginInfo)) as TResponse;
 
     if (res?.data?.success) {
-      const user = verifyToken(res?.data?.data?.accessToken) as TUser;
-      console.log(res, user);
-      dispatch(userLoggedIn({ user, token: res?.data?.data?.accessToken }));
+      dispatch(
+        userLoggedIn({
+          user: res?.data?.data?.user,
+          token: res?.data?.data?.token,
+        })
+      );
       toast.success("Login successful");
       setError("");
     }
     if (res?.error) {
       setError(res?.error?.data?.message);
+      console.log(res);
     }
   };
 
@@ -55,18 +58,18 @@ export default function Login() {
       <div>
         <form onSubmit={handleLogin} className="w-[90%] sm:w-[350px]">
           <div>
-            <h2 className="text-2xl font-medium text-center">Welcome Back</h2>
+            <h2 className="text-2xl font-medium text-center">Admin Login</h2>
           </div>
           <br />
           <div className="mb-5">
             <label htmlFor="email" className="block mb-2 text-sm font-medium">
-              Email
+              UserName
             </label>
             <input
-              type="email"
-              id="email"
+              type="text"
+              id="userName"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              placeholder="example@gmail.com"
+              placeholder="superAdmin"
               required
             />
           </div>
@@ -97,18 +100,6 @@ export default function Login() {
             {isLoading ? "Loading..." : "Submit"}
           </button>
         </form>
-
-        <div className="border-t border-neutral/20 mt-6 pt-4 text-center">
-          <p className="text-sm text-neutral/70">
-            No have any account?
-            <Link
-              to="/register"
-              className="text-blue-500  pl-2 hover:underline"
-            >
-              Create an account
-            </Link>
-          </p>
-        </div>
       </div>
     </div>
   );
