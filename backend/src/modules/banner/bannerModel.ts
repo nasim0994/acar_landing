@@ -10,7 +10,7 @@ const bannerSchema = new Schema<IBanner>({
     type: String,
     required: true,
   },
-  videoId: {
+  image: {
     type: String,
     required: true,
   },

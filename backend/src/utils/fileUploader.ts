@@ -1,6 +1,6 @@
 import multer from 'multer';
 
-export const fileUploder = (uploadPath: string, fileSize: number) => {
+export const fileUploader = (uploadPath: string) => {
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, process.cwd() + `/uploads/${uploadPath}`);
@@ -12,6 +12,5 @@ export const fileUploder = (uploadPath: string, fileSize: number) => {
 
   return multer({
     storage: storage,
-    limits: { fileSize },
   });
 };

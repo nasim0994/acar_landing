@@ -1,7 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 const Router = express.Router();
 import { verifyAdmin } from '../../middlewares/verifyAdmin';
-import { fileUploder } from '../../utils/fileUploder';
 import verifyValidate from '../../middlewares/verifyValidate';
 import { productValidation } from './productValidation';
 import {
@@ -11,7 +10,8 @@ import {
   getProductById,
   updateProduct,
 } from './productController';
-const upload = fileUploder('product', 1024 * 1024).single('file');
+import { fileUploader } from '../../utils/fileUploader';
+const upload = fileUploader('product').single('file');
 
 Router.post(
   '/add',

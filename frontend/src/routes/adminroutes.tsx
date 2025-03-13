@@ -1,5 +1,6 @@
 import AdminLayout from "@/layouts/AdminLayout";
 import AdminProtectedRoute from "@/layouts/AdminProtectedRoute";
+import Banner from "@/pages/admin/Banner";
 import Dashboard from "@/pages/admin/Dashboard";
 import { Navigate } from "react-router-dom";
 
@@ -18,6 +19,10 @@ export const adminRoutes = {
     {
       path: "dashboard",
       element: <Dashboard />,
+    },
+    {
+      path: "banner",
+      element: <Banner />,
     },
   ],
 };

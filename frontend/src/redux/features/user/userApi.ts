@@ -2,9 +2,9 @@ import { baseApi } from "@/redux/baseApi";
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAdmins: builder.query({
+    getAllAdmins: builder.query({
       query: () => ({
-        url: "/user/all",
+        url: "/admin/all",
         method: "GET",
       }),
       providesTags: ["user"],
@@ -20,7 +20,7 @@ export const userApi = baseApi.injectEndpoints({
 
     deleteAdmin: builder.mutation({
       query: (id) => ({
-        url: `/user/delete/${id}`,
+        url: `/admin/delete/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["user"],
@@ -28,7 +28,7 @@ export const userApi = baseApi.injectEndpoints({
 
     addAdmin: builder.mutation({
       query: (adminInfo) => ({
-        url: `/user/add-admin`,
+        url: `/admin/add-admin`,
         method: "POST",
         body: adminInfo,
       }),
@@ -38,7 +38,7 @@ export const userApi = baseApi.injectEndpoints({
 });
 
 export const {
-  useGetAdminsQuery,
+  useGetAllAdminsQuery,
   useDeleteAdminMutation,
   useGetAdminByIdQuery,
   useAddAdminMutation,

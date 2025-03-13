@@ -5,9 +5,19 @@ import {
   getBannerService,
   updateBannerService,
 } from './bannerService';
+import AppError from '../../errors/AppError';
+import httpStatus from 'http-status';
+import { deleteFile } from '../../utils/deleteFile';
 
 export const addBanner: RequestHandler = catchAsync(async (req, res) => {
-  const data = req.body;
+  const image: string | undefined = req?.file?.filename;
+  if (!image) throw new AppError(httpStatus.NOT_FOUND, 'image is required !');
+
+  const data = {
+    ...req.body,
+    image: `/banner/${image}`,
+  };
+
   const result = await addBannerService(data);
 
   res.status(200).json({
@@ -27,14 +37,26 @@ export const getBanner: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-export const updateBanner: RequestHandler = catchAsync(async (req, res) => {
-  const data = req.body;
-  const id = req.params.id;
-  const result = await updateBannerService(data, id);
+export const updateBanner: RequestHandler = catchAsync(
+  async (req, res, next) => {
+    const id = req.params.id;
+    const image: string | undefined = req?.file?.filename;
+    const data = {
+      ...req.body,
+      thumbnail: image ? `/banner/${image}` : undefined,
+    };
 
-  res.status(200).json({
-    success: true,
-    message: 'Banner updated successfully',
-    data: result,
-  });
-});
+    try {
+      const result = await updateBannerService(data, id);
+
+      res.status(200).json({
+        success: true,
+        message: 'Banner updated successfully',
+        data: result,
+      });
+    } catch (error) {
+      if (image) deleteFile(`/banner/${image}`);
+      next(error);
+    }
+  },
+);

@@ -118,7 +118,7 @@ body {
 
 .form_group label {
   color: #444;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .form_group input,
@@ -130,8 +130,14 @@ body {
   padding: 5px 6px;
   outline: none;
   font-size: 15px;
-  margin-top: 3px;
+  margin-top: 2px;
   color: #333;
+}
+
+.form_group input:focus-visible,
+.form_group textarea:focus-visible,
+.form_group select:focus-visible {
+  --tw-ring-shadow: none;
 }
 
 .no-focus:focus {

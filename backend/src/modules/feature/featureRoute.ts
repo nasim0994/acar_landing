@@ -1,7 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 const Router = express.Router();
 import { verifyAdmin } from '../../middlewares/verifyAdmin';
-import { fileUploder } from '../../utils/fileUploder';
 import {
   addFeature,
   deleteFeature,
@@ -11,7 +10,8 @@ import {
 } from './featureController';
 import verifyValidate from '../../middlewares/verifyValidate';
 import { featureValidation } from './featureValidation';
-const upload = fileUploder('feature', 1024 * 1024).single('file');
+import { fileUploader } from '../../utils/fileUploader';
+const upload = fileUploader('feature').single('file');
 
 Router.post(
   '/add',
