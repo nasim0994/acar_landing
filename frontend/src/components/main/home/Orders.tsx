@@ -1,11 +1,18 @@
 import { MdArrowDropUp, MdDelete } from "react-icons/md";
 import { useAppDispatch, useAppSelector } from "@/redux/hook/hooks";
-import { removeFromCart } from "@/redux/features/cart/cartSlice";
+import {
+  clearCartAfterOrder,
+  removeFromCart,
+} from "@/redux/features/cart/cartSlice";
 import { useEffect, useState } from "react";
 import { useGetBusinessQuery } from "@/redux/features/businessInfo/businessInfoApi";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { useCreateOrderMutation } from "@/redux/features/order/orderApi";
 
 export default function Orders() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [shipping, setShipping] = useState(0);
   const { carts } = useAppSelector((state) => state.cart);
 
@@ -22,6 +29,54 @@ export default function Orders() {
   );
   const total = subTotal + shipping;
 
+  const [createOrder, { isLoading }] = useCreateOrderMutation();
+
+  const handlePlaceOrder = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = e.target as HTMLFormElement;
+    const name = (form.elements.namedItem("name") as HTMLInputElement).value;
+    const phone = (form.elements.namedItem("number") as HTMLInputElement).value;
+    const city = (form.elements.namedItem("city") as HTMLInputElement).value;
+    const address = (form.elements.namedItem("address") as HTMLInputElement)
+      .value;
+
+    if (carts?.length === 0) {
+      return toast.error("Please add some products to cart first.");
+    }
+
+    const orderInfo = {
+      user: {
+        name,
+        phone,
+      },
+      city,
+      address,
+      products: carts?.map((product) => {
+        return {
+          product: product?._id,
+          quantity: product?.quantity,
+        };
+      }),
+      shipping,
+      total,
+    };
+
+    console.log(orderInfo);
+
+    const res = await createOrder(orderInfo);
+
+    if (res?.data?.success) {
+      form.reset();
+      toast.success("Order placed successfully!");
+      dispatch(clearCartAfterOrder());
+      navigate(`/order/success/${res?.data?.data?._id}`);
+    } else {
+      toast.error("Something went wrong! Please try again.");
+    }
+    console.log(res);
+  };
+
   return (
     <section className="py-10" id="order">
       <div className="container">
@@ -30,7 +85,10 @@ export default function Orders() {
             অর্ডার করতে আপনার সঠিক তথ্য দিয়ে নিচের ফর্মটি সম্পূর্ণ পূরন করুন।
           </h2>
 
-          <form className="mt-6 grid md:grid-cols-2 gap-6 lg:gap-10 form_group">
+          <form
+            onSubmit={handlePlaceOrder}
+            className="mt-6 grid md:grid-cols-2 gap-6 lg:gap-10 form_group"
+          >
             <div>
               <h2 className="text-neutral font-medium">Billing Details</h2>
               <br />
@@ -179,11 +237,11 @@ export default function Orders() {
                 </div>
 
                 <div className="mt-4">
-                  <button className="text-center w-full bg-primary text-base-100 rounded py-2.5 font-semibold">
-                    {/* {isLoading
-                          ? "Loading..."
-                          : `Confirm order - ${calculateTotal() + shipping} TK`} */}{" "}
-                    অর্ডার কনফার্ম করুন - {total} টাকা
+                  <button
+                    disabled={isLoading}
+                    className="text-center w-full bg-primary text-base-100 rounded py-2.5 font-semibold"
+                  >
+                    {isLoading ? "Loading..." : `Confirm order - ${total} TK`}
                   </button>
                 </div>
               </div>

@@ -4,7 +4,7 @@ export const oderApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     createOrder: builder.mutation({
       query: (orderInfo) => ({
-        url: `/order/create-order`,
+        url: `/order/add`,
         method: "POST",
         body: orderInfo,
       }),
@@ -13,7 +13,7 @@ export const oderApi = baseApi.injectEndpoints({
 
     getAllOrders: builder.query({
       query: (query) => ({
-        url: `/order/all-orders`,
+        url: `/order/all`,
         method: "GET",
         params: query,
       }),

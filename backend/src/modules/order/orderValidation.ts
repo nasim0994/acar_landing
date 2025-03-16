@@ -11,7 +11,7 @@ export const orderValidation = z.object({
   products: z
     .array(
       z.object({
-        product: z.string().uuid('Invalid product ID'),
+        product: z.string().min(1, 'Product ID is required'),
         quantity: z
           .number()
           .min(1, 'Quantity must be at least 1')
