@@ -63,5 +63,6 @@ export const baseApi = createApi({
     "banner",
     "featureSection",
     "whyChoose",
+    "seo",
   ],
 });

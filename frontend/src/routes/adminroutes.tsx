@@ -10,6 +10,7 @@ import Feature from "@/pages/admin/Feature";
 import AddProduct from "@/pages/admin/product/AddProduct";
 import AllProduct from "@/pages/admin/product/AllProduct";
 import EditProduct from "@/pages/admin/product/EditProduct";
+import SEO from "@/pages/admin/Seo";
 import AddWhyChoose from "@/pages/admin/whyChose/AddWhyChoose";
 import AllWhyChoose from "@/pages/admin/whyChose/AllWhyChoose";
 import EditWhyChoose from "@/pages/admin/whyChose/EditWhyChoose";
@@ -91,6 +92,12 @@ export const adminRoutes = {
     {
       path: "faq/edit/:id",
       element: <EditFaq />,
+    },
+
+    // seo
+    {
+      path: "seo",
+      element: <SEO />,
     },
   ],
 };

@@ -1,7 +1,20 @@
 import { z } from 'zod';
 
-export const logoValidation = z.object({
-  basic: z.record(z.any({ required_error: 'Basic is required.' })),
-  og: z.record(z.any()).optional(),
-  custom: z.record(z.any()).optional(),
+export const seoValidation = z.object({
+  title: z.string().min(3).max(100),
+  author: z.string().optional(),
+  subject: z.string().optional(),
+  description: z.string().min(3).max(200),
+  keywords: z.string().optional(),
+
+  ogTitle: z.string().optional(),
+  ogType: z.string().optional(),
+  ogUrl: z.string().optional(),
+  ogImageUrl: z.string().optional(),
+  ogDescription: z.string().optional(),
+  ogSiteName: z.string().optional(),
+
+  facebook_domain_verification: z.string().optional(),
+  google_site_verification: z.string().optional(),
+  google_tag_manager: z.string().optional(),
 });
