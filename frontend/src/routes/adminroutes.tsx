@@ -10,6 +10,7 @@ import FaqSection from "@/pages/admin/faq/FaqSection";
 import Feature from "@/pages/admin/Feature";
 import Favicon from "@/pages/admin/frontend/Favicon";
 import Logo from "@/pages/admin/frontend/Logo";
+import AllOrder from "@/pages/admin/order/AllOrder";
 import AddProduct from "@/pages/admin/product/AddProduct";
 import AllProduct from "@/pages/admin/product/AllProduct";
 import EditProduct from "@/pages/admin/product/EditProduct";
@@ -53,6 +54,12 @@ export const adminRoutes = {
     {
       path: "product/edit/:id",
       element: <EditProduct />,
+    },
+
+    // order
+    {
+      path: "order/all",
+      element: <AllOrder />,
     },
 
     // why choose
