@@ -42,7 +42,7 @@ export default function EditProduct() {
     const info = {
       title: data.title,
       price: Number(data.price),
-      discountPrice: Number(data.discountPrice),
+      discountPrice: data.discountPrice && Number(data.discountPrice),
       description: data.description,
     };
     const formData = new FormData();
@@ -117,12 +117,7 @@ export default function EditProduct() {
                 <FormItem>
                   <label>Discount Price</label>
                   <FormControl>
-                    <Input
-                      type="number"
-                      {...field}
-                      value={field.value || ""}
-                      required
-                    />
+                    <Input type="number" {...field} value={field.value || ""} />
                   </FormControl>
                   <FormMessage className="text-xs font-light" />
                 </FormItem>

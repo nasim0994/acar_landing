@@ -1,13 +1,24 @@
+import { useGetBannerQuery } from "@/redux/features/banner/bannerApi";
+import { useGetLogosQuery } from "@/redux/features/logo/logoApi";
 import { Link } from "react-router-dom";
 
 export default function Hero() {
+  const { data: logoData } = useGetLogosQuery({});
+  const { data } = useGetBannerQuery({});
+  const banner = data?.data;
+  const logo = logoData?.data?.logo;
+
   return (
     <section className="relative min-h-[100vh] bg-gradient-to-t from-primary/70 via-secondary to-secondary/90 pb-10 sm:pb-0">
       <header className="pt-2">
         <div className="container">
           <div className="flex justify-between items-center">
             <Link to="/">
-              <img src="/images/logo.png" alt="logo" className="w-28 sm:w-40" />
+              <img
+                src={`${import.meta.env.VITE_BACKEND_URL}/${logo}`}
+                alt="logo"
+                className="w-28 sm:w-40"
+              />
             </Link>
 
             <a href="#order" className="primary_btn text-sm">
@@ -22,14 +33,11 @@ export default function Hero() {
           <div className="mt-10 xl:-mt-32 grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 items-center">
             <div className="pb-10">
               <h2 className="text-3xl md:text-5xl text-primary font-bold">
-                স্বাদে ভরা আচার – খাঁটি ও ঘরোয়া স্বাদ এখন আপনার হাতের নাগালে!
+                {banner?.title}
               </h2>
 
               <p className="mt-2 sm:mt-4 sm:text-lg font-medium text-neutral">
-                ঝাল, টক, মিষ্টি – যেকোনো স্বাদের আচার খুঁজছেন? আমাদের হাতের তৈরি
-                খাঁটি ও স্বাস্থ্যকর আচারে রয়েছে বাছাই করা উপকরণ এবং দারুণ স্বাদ।
-                এখনই অর্ডার করুন এবং উপভোগ করুন মায়ের হাতে বানানো ঘরোয়া আচারের
-                অনন্য স্বাদ! 🥭🌶️
+                {banner?.description}
               </p>
 
               <div className="mt-8">
@@ -44,8 +52,8 @@ export default function Hero() {
 
             <div className="-order-1 lg:order-1">
               <img
-                src="/images/acar.png"
-                alt="acar"
+                src={`${import.meta.env.VITE_BACKEND_URL}/${banner?.image}`}
+                alt={banner?.title}
                 className="w-[60%] lg:w-[80%] mx-auto"
               />
             </div>

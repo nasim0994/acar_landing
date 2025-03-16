@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 
 export type ICart = {
   _id: string;
-  name: string;
+  title: string;
   quantity: number;
   price: number;
   image: string;
@@ -31,7 +31,7 @@ export const cartSlice = createSlice({
     addToCart: (state, action) => {
       const oldCarts = state.carts;
       const { product, selectedQuantity } = action.payload;
-      const { _id, name, price, image } = product;
+      const { _id, title, price, image, discountPrice } = product;
 
       //   check if the item is already in the cart
       const isExistingItem = oldCarts?.find((item) => item?._id == _id);
@@ -42,8 +42,8 @@ export const cartSlice = createSlice({
       } else {
         state.carts.push({
           _id,
-          name,
-          price,
+          title,
+          price: discountPrice || price,
           quantity: selectedQuantity,
           image,
         });
@@ -53,12 +53,12 @@ export const cartSlice = createSlice({
 
     buyNow: (state, action) => {
       const { car, selectedQuantity } = action.payload;
-      const { _id, name, price, image } = car;
+      const { _id, title, price, image } = car;
 
       state.carts = [
         {
           _id,
-          name,
+          title,
           price,
           quantity: selectedQuantity,
           image,

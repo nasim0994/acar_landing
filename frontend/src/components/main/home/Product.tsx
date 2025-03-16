@@ -1,13 +1,10 @@
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  addToCart,
-  changeQuantity,
-  ICart,
-} from "@/redux/features/cart/cartSlice";
+import { IProduct } from "@/interface/productInterface";
+import { addToCart, changeQuantity } from "@/redux/features/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook/hooks";
 import { useEffect, useState } from "react";
 
-export default function Product({ product }: { product: ICart }) {
+export default function Product({ product }: { product: IProduct }) {
   const dispatch = useAppDispatch();
   const { carts } = useAppSelector((state) => state.cart);
   const [isInCart, setIsInCart] = useState(false);
@@ -19,7 +16,7 @@ export default function Product({ product }: { product: ICart }) {
     setSelectedQuantity(isExistingItem?.quantity || 1);
   }, [carts, product]);
 
-  const handleAddToCart = (product: ICart) => {
+  const handleAddToCart = (product: IProduct) => {
     dispatch(addToCart({ product, selectedQuantity }));
   };
 
@@ -47,14 +44,18 @@ export default function Product({ product }: { product: ICart }) {
           disabled={isInCart}
         />
 
-        <img src="/images/feature.jpg" alt="" className="w-14 rounded" />
+        <img
+          src={`${import.meta.env.VITE_BACKEND_URL}/${product?.image}`}
+          alt={product?.title}
+          className="w-14 rounded"
+        />
 
         <div className="-mt-1">
           <label
             htmlFor="product"
             className="cursor-pointer text-neutral font-bold peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mt-[3px]"
           >
-            বিশুদ্ধ এবং খাঁটি টক আচার - মিষ্টি-টক স্বাদের ভারসাম্যপূর্ণ আচার
+            {product?.title}
           </label>
 
           <div className="flex items-center mt-1 gap-4">
@@ -75,7 +76,14 @@ export default function Product({ product }: { product: ICart }) {
             </div>
 
             <div>
-              <span className="text-sm">৳ {product?.price}</span>
+              {product?.discountPrice && product.discountPrice > 0 ? (
+                <span>
+                  <del className="text-sm text-red-500">৳ {product?.price}</del>{" "}
+                  <span className="text-sm">৳ {product?.discountPrice}</span>
+                </span>
+              ) : (
+                <span className="text-sm">৳ {product?.price}</span>
+              )}
             </div>
           </div>
         </div>

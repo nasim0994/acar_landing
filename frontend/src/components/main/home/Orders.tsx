@@ -1,12 +1,21 @@
 import { MdArrowDropUp, MdDelete } from "react-icons/md";
 import { useAppDispatch, useAppSelector } from "@/redux/hook/hooks";
 import { removeFromCart } from "@/redux/features/cart/cartSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useGetBusinessQuery } from "@/redux/features/businessInfo/businessInfoApi";
 
 export default function Orders() {
   const dispatch = useAppDispatch();
-  const [shipping, setShipping] = useState(80);
+  const [shipping, setShipping] = useState(0);
   const { carts } = useAppSelector((state) => state.cart);
+
+  const { data } = useGetBusinessQuery({});
+  const shippingCharge = data?.data?.shipping;
+
+  useEffect(() => {
+    setShipping(shippingCharge?.insideDhaka);
+  }, [shippingCharge]);
+
   const subTotal = carts.reduce(
     (acc, item) => acc + item?.price * item?.quantity,
     0
@@ -14,7 +23,7 @@ export default function Orders() {
   const total = subTotal + shipping;
 
   return (
-    <section className="py-10">
+    <section className="py-10" id="order">
       <div className="container">
         <div className="mt-6 border border-primary rounded p-5 sm:p-10 bg-secondary/5">
           <h2 className="text-xl sm:text-2xl text-primary font-semibold text-center sm:w-3/4 mx-auto mb-6">
@@ -78,17 +87,15 @@ export default function Orders() {
                         <div className="flex items-center gap-2">
                           <img
                             src={
-                              import.meta.env.VITE_BACKEND_URL +
-                              "/product/" +
-                              product?.image
+                              import.meta.env.VITE_BACKEND_URL + product?.image
                             }
-                            alt="product"
+                            alt={product?.title}
                             className="w-11 h-11 rounded"
                           />
 
                           <div>
                             <p className="text-neutral text-[15px]">
-                              {product?.name} * {product?.quantity}
+                              {product?.title} * {product?.quantity}
                             </p>
                           </div>
                         </div>
@@ -112,13 +119,13 @@ export default function Orders() {
                         <input
                           id="insideDhaka"
                           type="radio"
-                          // value={shippingCharge?.insideDhaka}
+                          value={shippingCharge?.insideDhaka}
                           name="shipping"
                           className="w-4 h-4"
-                          // onClick={() =>
-                          //   setShipping(shippingCharge?.insideDhaka)
-                          // }
-                          // checked={shipping === shippingCharge?.insideDhaka}
+                          onClick={() =>
+                            setShipping(shippingCharge?.insideDhaka)
+                          }
+                          checked={shipping === shippingCharge?.insideDhaka}
                         />
                       </div>
 
@@ -126,7 +133,7 @@ export default function Orders() {
                         htmlFor="insideDhaka"
                         className="ms-2 text-sm font-medium whitespace-nowrap"
                       >
-                        ঢাকার বাহিরে: 80 টাকা
+                        ঢাকার ভিতরে: {shippingCharge?.insideDhaka} টাকা
                       </label>
                     </div>
                     <div className="flex items-center">
@@ -134,13 +141,13 @@ export default function Orders() {
                         <input
                           id="outsideDhaka"
                           type="radio"
-                          // value={shippingCharge?.outsideDhaka}
+                          value={shippingCharge?.outsideDhaka}
                           name="shipping"
                           className="w-4 h-4"
-                          // onClick={() =>
-                          //   setShipping(shippingCharge?.outsideDhaka)
-                          // }
-                          // checked={shipping === shippingCharge?.outsideDhaka}
+                          onClick={() =>
+                            setShipping(shippingCharge?.outsideDhaka)
+                          }
+                          checked={shipping === shippingCharge?.outsideDhaka}
                         />
                       </div>
 
@@ -148,7 +155,7 @@ export default function Orders() {
                         htmlFor="outsideDhaka"
                         className="ms-2 text-sm font-medium whitespace-nowrap"
                       >
-                        ঢাকার ভিতরে: 130 টাকা
+                        ঢাকার বাহিরে: {shippingCharge?.outsideDhaka} টাকা
                       </label>
                     </div>
                   </div>
