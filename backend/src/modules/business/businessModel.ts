@@ -17,6 +17,10 @@ const businessSchema = new Schema<IBusiness>({
     type: String,
     required: true,
   },
+  facebook: {
+    type: String,
+    required: true,
+  },
   address: {
     type: String,
     required: true,

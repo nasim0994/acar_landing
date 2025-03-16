@@ -1,6 +1,7 @@
 import AdminLayout from "@/layouts/AdminLayout";
 import AdminProtectedRoute from "@/layouts/AdminProtectedRoute";
 import Banner from "@/pages/admin/Banner";
+import BusinessInfo from "@/pages/admin/BusinessInfo";
 import Dashboard from "@/pages/admin/Dashboard";
 import AddFaq from "@/pages/admin/faq/AddFaq";
 import AllFaq from "@/pages/admin/faq/AllFaq";
@@ -92,6 +93,12 @@ export const adminRoutes = {
     {
       path: "faq/edit/:id",
       element: <EditFaq />,
+    },
+
+    // business info
+    {
+      path: "businessInfo",
+      element: <BusinessInfo />,
     },
 
     // seo
