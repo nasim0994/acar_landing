@@ -1,17 +1,17 @@
 import express, { NextFunction, Request, Response } from 'express';
 const Router = express.Router();
 import { verifyAdmin } from '../../middlewares/verifyAdmin';
-import {
-  addFeature,
-  deleteFeature,
-  getAllFeature,
-  getFeatureById,
-  updateFeature,
-} from './featureController';
 import verifyValidate from '../../middlewares/verifyValidate';
-import { featureValidation } from './featureValidation';
 import { fileUploader } from '../../utils/fileUploader';
-const upload = fileUploader('feature').single('file');
+import { whyChooseValidation } from './whyChooseValidation';
+import {
+  addWhyChoose,
+  deleteWhyChoose,
+  getAllWhyChoose,
+  getWhyChooseById,
+  updateWhyChoose,
+} from './whyChooseController';
+const upload = fileUploader('whyChoose').single('icon');
 
 Router.post(
   '/add',
@@ -21,12 +21,11 @@ Router.post(
     req.body = req.body.data && JSON.parse(req.body.data);
     next();
   },
-  verifyValidate(featureValidation),
-  addFeature,
+  verifyValidate(whyChooseValidation),
+  addWhyChoose,
 );
-
-Router.get('/all', getAllFeature);
-Router.get('/:id', getFeatureById);
+Router.get('/all', getAllWhyChoose);
+Router.get('/:id', getWhyChooseById);
 Router.patch(
   '/update/:id',
   verifyAdmin,
@@ -35,8 +34,8 @@ Router.patch(
     req.body = req.body.data && JSON.parse(req.body.data);
     next();
   },
-  updateFeature,
+  updateWhyChoose,
 );
-Router.delete('/delete/:id', verifyAdmin, deleteFeature);
+Router.delete('/delete/:id', verifyAdmin, deleteWhyChoose);
 
-export const featureRoute = Router;
+export const whyChooseRoute = Router;

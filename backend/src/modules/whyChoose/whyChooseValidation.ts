@@ -1,5 +1,5 @@
 import { z } from 'zod';
 
-export const featureSectionValidation = z.object({
+export const whyChooseValidation = z.object({
   title: z.string(),
 });

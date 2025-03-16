@@ -8,11 +8,11 @@ import { faviconRoute } from '../modules/favicon/faviconRoute';
 import { bannerRoute } from '../modules/banner/bannerRoute';
 import { faqSectionRoute } from '../modules/faqSection/faqSectionRoute';
 import { faqRoute } from '../modules/faq/faqRoute';
-import { featureRoute } from '../modules/feature/featureRoute';
-import { featureSectionRoute } from '../modules/featureSection/featureSectionRoute';
 import { productRoute } from '../modules/product/productRoute';
 import { businessRoute } from '../modules/business/businessRoute';
 import { orderRoute } from '../modules/order/orderRoute';
+import { whyChooseSectionRoute } from '../modules/whyChooseSection/whyChooseSectionRoute';
+import { whyChooseRoute } from '../modules/whyChoose/whyChooseRoute';
 
 const moduleRoutes = [
   {
@@ -48,12 +48,12 @@ const moduleRoutes = [
     route: faqRoute,
   },
   {
-    path: '/feature-section',
-    route: featureSectionRoute,
+    path: '/why-choose/section',
+    route: whyChooseSectionRoute,
   },
   {
-    path: '/feature',
-    route: featureRoute,
+    path: '/why-choose',
+    route: whyChooseRoute,
   },
   {
     path: '/business',

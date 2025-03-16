@@ -5,6 +5,10 @@ import Dashboard from "@/pages/admin/Dashboard";
 import AddProduct from "@/pages/admin/product/AddProduct";
 import AllProduct from "@/pages/admin/product/AllProduct";
 import EditProduct from "@/pages/admin/product/EditProduct";
+import AddWhyChoose from "@/pages/admin/whyChose/AddWhyChoose";
+import AllWhyChoose from "@/pages/admin/whyChose/AllWhyChoose";
+import EditWhyChoose from "@/pages/admin/whyChose/EditWhyChoose";
+import WhyChooseSection from "@/pages/admin/whyChose/WhyChoseSection";
 import { Navigate } from "react-router-dom";
 
 export const adminRoutes = {
@@ -40,6 +44,24 @@ export const adminRoutes = {
     {
       path: "product/edit/:id",
       element: <EditProduct />,
+    },
+
+    // why choose
+    {
+      path: "why-choose/section",
+      element: <WhyChooseSection />,
+    },
+    {
+      path: "why-choose/all",
+      element: <AllWhyChoose />,
+    },
+    {
+      path: "why-choose/add",
+      element: <AddWhyChoose />,
+    },
+    {
+      path: "why-choose/edit/:id",
+      element: <EditWhyChoose />,
     },
   ],
 };

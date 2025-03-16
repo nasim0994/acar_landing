@@ -61,5 +61,7 @@ export const baseApi = createApi({
     "faqSection",
     "feature",
     "banner",
+    "featureSection",
+    "whyChoose",
   ],
 });

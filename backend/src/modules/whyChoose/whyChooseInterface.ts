@@ -1,4 +1,4 @@
-export type IFeature = {
+export type IWhyChoose = {
   title: string;
   icon: string;
 };

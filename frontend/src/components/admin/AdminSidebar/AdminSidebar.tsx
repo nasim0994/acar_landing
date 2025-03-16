@@ -1,9 +1,9 @@
+import { AiOutlineQuestion } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { BsCart4, BsBoxSeam } from "react-icons/bs";
 import { FcAbout } from "react-icons/fc";
 import { RiAdminFill } from "react-icons/ri";
 import { FaChartLine } from "react-icons/fa";
-import { MdFeaturedPlayList } from "react-icons/md";
 import { PiFlagBannerFill } from "react-icons/pi";
 import { MdMonitor, MdOutlineDashboard, MdContactPhone } from "react-icons/md";
 
@@ -32,17 +32,16 @@ const adminSidebarItems: ISidebarItem[] = [
     path: "/admin/banner",
   },
   {
-    icon: <MdFeaturedPlayList />,
-    title: "Feature",
-
+    icon: <AiOutlineQuestion />,
+    title: "Why Choose",
     subMenu: [
       {
         title: "Section",
-        path: "/admin/feature/section",
+        path: "/admin/why-choose/section",
       },
       {
-        title: "Features",
-        path: "/admin/features/all",
+        title: "Why Choose",
+        path: "/admin/why-choose/all",
       },
     ],
   },
