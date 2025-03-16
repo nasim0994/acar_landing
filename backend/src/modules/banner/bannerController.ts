@@ -43,7 +43,7 @@ export const updateBanner: RequestHandler = catchAsync(
     const image: string | undefined = req?.file?.filename;
     const data = {
       ...req.body,
-      thumbnail: image ? `/banner/${image}` : undefined,
+      image: image ? `/banner/${image}` : undefined,
     };
 
     try {

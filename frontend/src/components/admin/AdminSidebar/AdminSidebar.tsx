@@ -1,3 +1,4 @@
+import { MdFeaturedPlayList } from "react-icons/md";
 import { AiOutlineQuestion } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { BsCart4, BsBoxSeam } from "react-icons/bs";
@@ -30,6 +31,11 @@ const adminSidebarItems: ISidebarItem[] = [
     icon: <PiFlagBannerFill />,
     title: "Banner",
     path: "/admin/banner",
+  },
+  {
+    icon: <MdFeaturedPlayList />,
+    title: "Feature",
+    path: "/admin/feature",
   },
   {
     icon: <AiOutlineQuestion />,

@@ -13,6 +13,7 @@ import { businessRoute } from '../modules/business/businessRoute';
 import { orderRoute } from '../modules/order/orderRoute';
 import { whyChooseSectionRoute } from '../modules/whyChooseSection/whyChooseSectionRoute';
 import { whyChooseRoute } from '../modules/whyChoose/whyChooseRoute';
+import { featureRoute } from '../modules/feature/featureRoute';
 
 const moduleRoutes = [
   {
@@ -38,6 +39,10 @@ const moduleRoutes = [
   {
     path: '/banner',
     route: bannerRoute,
+  },
+  {
+    path: '/feature',
+    route: featureRoute,
   },
   {
     path: '/faq-section',
