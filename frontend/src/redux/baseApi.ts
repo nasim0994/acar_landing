@@ -65,5 +65,7 @@ export const baseApi = createApi({
     "whyChoose",
     "seo",
     "business",
+    "logo",
+    "favicon",
   ],
 });

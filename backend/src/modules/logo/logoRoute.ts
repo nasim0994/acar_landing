@@ -3,7 +3,7 @@ const Router = express.Router();
 import { addLogo, getLogo, updateLogo } from './logoController';
 import { verifyAdmin } from '../../middlewares/verifyAdmin';
 import { fileUploader } from '../../utils/fileUploader';
-const upload = fileUploader('logo').single('file');
+const upload = fileUploader('logo').single('image');
 
 Router.post('/add', verifyAdmin, upload, addLogo);
 Router.get('/', getLogo);

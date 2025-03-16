@@ -77,11 +77,11 @@ const adminSidebarItems: ISidebarItem[] = [
     subMenu: [
       {
         title: "Logo",
-        path: "/admin/front-end/logo",
+        path: "/admin/frontend/logo",
       },
       {
         title: "Favicon",
-        path: "/admin/front-end/favicon",
+        path: "/admin/frontend/favicon",
       },
     ],
   },

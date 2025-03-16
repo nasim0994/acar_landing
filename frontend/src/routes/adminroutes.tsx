@@ -8,6 +8,8 @@ import AllFaq from "@/pages/admin/faq/AllFaq";
 import EditFaq from "@/pages/admin/faq/EditFaq";
 import FaqSection from "@/pages/admin/faq/FaqSection";
 import Feature from "@/pages/admin/Feature";
+import Favicon from "@/pages/admin/frontend/Favicon";
+import Logo from "@/pages/admin/frontend/Logo";
 import AddProduct from "@/pages/admin/product/AddProduct";
 import AllProduct from "@/pages/admin/product/AllProduct";
 import EditProduct from "@/pages/admin/product/EditProduct";
@@ -99,6 +101,16 @@ export const adminRoutes = {
     {
       path: "businessInfo",
       element: <BusinessInfo />,
+    },
+
+    // frontend
+    {
+      path: "frontend/logo",
+      element: <Logo />,
+    },
+    {
+      path: "frontend/favicon",
+      element: <Favicon />,
     },
 
     // seo
