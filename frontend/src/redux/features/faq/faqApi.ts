@@ -10,10 +10,10 @@ export const faqApi = baseApi.injectEndpoints({
     }),
 
     createFaq: builder.mutation({
-      query: (formData) => ({
+      query: (info) => ({
         url: `/faq/add`,
         method: "POST",
-        body: formData,
+        body: info,
       }),
       invalidatesTags: ["faq"],
     }),
@@ -27,10 +27,10 @@ export const faqApi = baseApi.injectEndpoints({
     }),
 
     updateFaq: builder.mutation({
-      query: ({ id, data }) => ({
+      query: ({ id, info }) => ({
         url: `/faq/update/${id}`,
         method: "PATCH",
-        body: data,
+        body: info,
       }),
       invalidatesTags: ["faq"],
     }),

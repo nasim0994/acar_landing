@@ -2,6 +2,10 @@ import AdminLayout from "@/layouts/AdminLayout";
 import AdminProtectedRoute from "@/layouts/AdminProtectedRoute";
 import Banner from "@/pages/admin/Banner";
 import Dashboard from "@/pages/admin/Dashboard";
+import AddFaq from "@/pages/admin/faq/AddFaq";
+import AllFaq from "@/pages/admin/faq/AllFaq";
+import EditFaq from "@/pages/admin/faq/EditFaq";
+import FaqSection from "@/pages/admin/faq/FaqSection";
 import Feature from "@/pages/admin/Feature";
 import AddProduct from "@/pages/admin/product/AddProduct";
 import AllProduct from "@/pages/admin/product/AllProduct";
@@ -69,6 +73,24 @@ export const adminRoutes = {
     {
       path: "feature",
       element: <Feature />,
+    },
+
+    // faq
+    {
+      path: "faq-section",
+      element: <FaqSection />,
+    },
+    {
+      path: "faq/all",
+      element: <AllFaq />,
+    },
+    {
+      path: "faq/add",
+      element: <AddFaq />,
+    },
+    {
+      path: "faq/edit/:id",
+      element: <EditFaq />,
     },
   ],
 };

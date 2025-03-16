@@ -61,7 +61,7 @@ const adminSidebarItems: ISidebarItem[] = [
       },
       {
         title: "FAQ",
-        path: "/admin/faq",
+        path: "/admin/faq/all",
       },
     ],
   },
