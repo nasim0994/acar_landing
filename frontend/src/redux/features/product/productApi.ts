@@ -1,18 +1,18 @@
 import { baseApi } from "@/redux/baseApi";
 
-export const carApi = baseApi.injectEndpoints({
+export const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     addProduct: builder.mutation({
-      query: (data) => ({
-        url: `/car/add`,
+      query: (formData) => ({
+        url: `/product/add`,
         method: "POST",
-        body: data,
+        body: formData,
       }),
       invalidatesTags: ["product"],
     }),
     getAllProduct: builder.query({
       query: (query) => ({
-        url: `/car/all`,
+        url: `/product/all`,
         method: "GET",
         params: query,
       }),
@@ -20,22 +20,22 @@ export const carApi = baseApi.injectEndpoints({
     }),
     getProductById: builder.query({
       query: (id) => ({
-        url: `/car/${id}`,
+        url: `/product/${id}`,
         method: "GET",
       }),
       providesTags: ["product"],
     }),
     editProductById: builder.mutation({
       query: ({ id, formData }) => ({
-        url: `/car/update/${id}`,
-        method: "PUT",
+        url: `/product/update/${id}`,
+        method: "PATCH",
         body: formData,
       }),
       invalidatesTags: ["product"],
     }),
     deleteProduct: builder.mutation({
       query: (id) => ({
-        url: `/car/delete/${id}`,
+        url: `/product/delete/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["product"],
@@ -49,4 +49,4 @@ export const {
   useGetProductByIdQuery,
   useEditProductByIdMutation,
   useDeleteProductMutation,
-} = carApi;
+} = productApi;

@@ -11,7 +11,7 @@ import {
   updateProduct,
 } from './productController';
 import { fileUploader } from '../../utils/fileUploader';
-const upload = fileUploader('product').single('file');
+const upload = fileUploader('product').single('image');
 
 Router.post(
   '/add',

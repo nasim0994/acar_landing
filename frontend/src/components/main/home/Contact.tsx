@@ -6,14 +6,6 @@ export default function Contact() {
           প্রয়োজন হলে কল করুন: 01706260994, 01706260995
         </h2>
       </div>
-
-      <div>
-        <img
-          src="/images/wave.png"
-          alt="wave"
-          className="w-full h-20 absolute -bottom-3 left-0"
-        />
-      </div>
     </section>
   );
 }

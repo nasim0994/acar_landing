@@ -1,10 +1,11 @@
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { AiOutlineDelete } from "react-icons/ai";
 import {
-  useAddBannerMutation,
-  useGetBannerQuery,
-  useUpdateBannerMutation,
-} from "@/redux/features/banner/bannerApi";
-import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
+  useEditProductByIdMutation,
+  useGetProductByIdQuery,
+} from "@/redux/features/product/productApi";
+import toast from "react-hot-toast";
 import {
   Form,
   FormControl,
@@ -13,64 +14,56 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { Button } from "@/components/ui/button";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { TResponse } from "@/interface/globalInterface";
+import { IProduct } from "@/interface/productInterface";
 
-export default function Banner() {
+export default function EditProduct() {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [image, setImage] = useState<File | null>(null);
-
-  const { data } = useGetBannerQuery({});
-  const banner = data?.data;
-  const id = banner?._id;
-
   const form = useForm();
 
-  useEffect(() => {
-    if (banner) {
-      form.reset({
-        title: banner.title || "",
-        description: banner.description || "",
-      });
-    }
-  }, [banner, form]);
+  const { data } = useGetProductByIdQuery(id);
+  const product: IProduct = data?.data;
 
-  const [addBanner, { isLoading: aIsLoading }] = useAddBannerMutation();
-  const [updateBanner, { isLoading: uIsLoading }] = useUpdateBannerMutation();
+  useEffect(() => {
+    form.setValue("title", product?.title);
+    form.setValue("price", product?.price);
+    form.setValue("discountPrice", product?.discountPrice);
+    form.setValue("description", product?.description);
+  }, [product, form]);
+
+  const [editProductById, { isLoading }] = useEditProductByIdMutation();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const info = {
       title: data.title,
+      price: Number(data.price),
+      discountPrice: Number(data.discountPrice),
       description: data.description,
     };
     const formData = new FormData();
     formData.append("image", image as Blob);
     formData.append("data", JSON.stringify(info));
 
-    if (id) {
-      const res = await updateBanner({ id, formData });
-      if (res?.data?.success) {
-        toast.success("Banner Update Success");
-      } else {
-        toast.error(res?.data?.message || "something went wrong!");
-        console.log(res);
-      }
+    const res = (await editProductById({ id, formData })) as TResponse;
+
+    if (res?.data?.success) {
+      toast.success("Product update Success");
+      navigate("/admin/product/all");
     } else {
-      const res = await addBanner(formData);
-      if (res?.data?.success) {
-        toast.success("Banner Add Success");
-      } else {
-        toast.error(res?.data?.message || "something went wrong!");
-        console.log(res);
-      }
+      toast.error(res?.error?.data?.message || "something went wrong!");
+      console.log(res);
     }
   };
 
   return (
-    <section className="bg-base-100 rounded shadow">
-      <div className="p-4 border-b">
-        <h3 className="font-medium text-neutral">Banner</h3>
+    <section className="bg-base-100 shadow rounded">
+      <div className="p-4 border-b text-neutral font-medium flex justify-between items-center">
+        <h3>Edit Product</h3>
       </div>
 
       <Form {...form}>
@@ -83,7 +76,7 @@ export default function Banner() {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <label>Banner Title</label>
+                <label>Product Title</label>
                 <FormControl>
                   <Input
                     type="text"
@@ -97,12 +90,52 @@ export default function Banner() {
             )}
           />
 
+          <div className="grid sm:grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="price"
+              render={({ field }) => (
+                <FormItem>
+                  <label>Regular Price</label>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      {...field}
+                      value={field.value || ""}
+                      required
+                    />
+                  </FormControl>
+                  <FormMessage className="text-xs font-light" />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="discountPrice"
+              render={({ field }) => (
+                <FormItem>
+                  <label>Discount Price</label>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      {...field}
+                      value={field.value || ""}
+                      required
+                    />
+                  </FormControl>
+                  <FormMessage className="text-xs font-light" />
+                </FormItem>
+              )}
+            />
+          </div>
+
           <FormField
             control={form.control}
             name="description"
             render={({ field }) => (
               <FormItem>
-                <label>Banner Description</label>
+                <label>Product Description</label>
                 <FormControl>
                   <Textarea
                     {...field}
@@ -121,7 +154,7 @@ export default function Banner() {
             name="image"
             render={({ field }) => (
               <FormItem>
-                <label>Banner Image</label>
+                <label>Product Image</label>
                 <FormControl>
                   <Input
                     type="file"
@@ -145,11 +178,11 @@ export default function Banner() {
             )}
           />
 
-          {banner?.image && !image && (
+          {product?.image && !image && (
             <div className="w-80 relative">
               <img
-                src={`${import.meta.env.VITE_BACKEND_URL}/${banner?.image}`}
-                alt="banner"
+                src={`${import.meta.env.VITE_BACKEND_URL}/${product?.image}`}
+                alt={product?.title}
                 className="w-full object-cover rounded mb-4"
               />
             </div>
@@ -173,7 +206,7 @@ export default function Banner() {
           )}
 
           <Button type="submit" className="w-max">
-            {aIsLoading || uIsLoading ? "Loading..." : "Submit"}
+            {isLoading ? "Loading..." : "Submit"}
           </Button>
         </form>
       </Form>
