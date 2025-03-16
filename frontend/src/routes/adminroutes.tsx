@@ -1,5 +1,7 @@
 import AdminLayout from "@/layouts/AdminLayout";
 import AdminProtectedRoute from "@/layouts/AdminProtectedRoute";
+import AddAdministrator from "@/pages/admin/administrator/AddAdministrator";
+import AllAdministrator from "@/pages/admin/administrator/AllAdministrator";
 import Banner from "@/pages/admin/Banner";
 import BusinessInfo from "@/pages/admin/BusinessInfo";
 import Dashboard from "@/pages/admin/Dashboard";
@@ -118,6 +120,16 @@ export const adminRoutes = {
     {
       path: "frontend/favicon",
       element: <Favicon />,
+    },
+
+    // Administrator
+    {
+      path: "administrator/all",
+      element: <AllAdministrator />,
+    },
+    {
+      path: "administrator/add",
+      element: <AddAdministrator />,
     },
 
     // seo

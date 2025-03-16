@@ -6,7 +6,7 @@ import { loginValidation } from './authValidation';
 import { createAdmin, loggedUser, loginUser } from './authController';
 import { verifyToken } from '../../middlewares/verifyToken';
 
-Router.post('/admin/register', verifyValidate(userValidation), createAdmin);
+Router.post('/admin/add', verifyValidate(userValidation), createAdmin);
 Router.post('/login', verifyValidate(loginValidation), loginUser);
 Router.get('/me', verifyToken, loggedUser);
 

@@ -8,12 +8,12 @@ export const userValidation = z.object({
   email: z.string().email({ message: 'Invalid email format' }).optional(),
   phone: z
     .string()
-    .min(11, { message: 'Phone must be at least 11 characters' }),
+    .min(11, { message: 'Phone must be at least 11 characters' })
+    .optional(),
   password: z
     .string({
       invalid_type_error: 'Password must be string',
     })
     .max(20, { message: 'Password can not be more than 20 characters' }),
-  role: z.enum(['admin', 'superAdmin']),
   isBlocked: z.boolean().optional(),
 });

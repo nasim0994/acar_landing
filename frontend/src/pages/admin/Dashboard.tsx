@@ -1,8 +1,8 @@
 import { FaUserShield, FaCartPlus } from "react-icons/fa";
 import { MdFeaturedPlayList } from "react-icons/md";
 import { FcAbout } from "react-icons/fc";
-import { useGetAllAdminsQuery } from "@/redux/features/user/userApi";
 import { useGetAllFaqQuery } from "@/redux/features/faq/faqApi";
+import { useGetAllAdminsQuery } from "@/redux/features/admin/adminApi";
 
 export default function Dashboard() {
   const { data: users } = useGetAllAdminsQuery({});

@@ -6,7 +6,13 @@ export const deleteAdminService = async (userId: string) => {
   const isExist = await User.findById(userId);
   if (!isExist) throw new AppError(httpStatus.NOT_FOUND, 'User not found');
 
-  const result = await User.findByIdAndUpdate(userId);
+  // check last admin
+  const admins = await User.find();
+  if (admins.length === 1) {
+    throw new AppError(httpStatus.BAD_REQUEST, 'You can not delete last admin');
+  }
+
+  const result = await User.findByIdAndDelete(userId);
   return result;
 };
 

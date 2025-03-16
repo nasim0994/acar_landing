@@ -1,6 +1,6 @@
 import { baseApi } from "@/redux/baseApi";
 
-export const userApi = baseApi.injectEndpoints({
+export const adminApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllAdmins: builder.query({
       query: () => ({
@@ -27,10 +27,10 @@ export const userApi = baseApi.injectEndpoints({
     }),
 
     addAdmin: builder.mutation({
-      query: (adminInfo) => ({
-        url: `/admin/add-admin`,
+      query: (info) => ({
+        url: `/auth/admin/add`,
         method: "POST",
-        body: adminInfo,
+        body: info,
       }),
       invalidatesTags: ["user"],
     }),
@@ -42,4 +42,4 @@ export const {
   useDeleteAdminMutation,
   useGetAdminByIdQuery,
   useAddAdminMutation,
-} = userApi;
+} = adminApi;
