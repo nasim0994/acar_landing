@@ -9,7 +9,7 @@ export default function Faq() {
 
   const { data: sectionData } = useGetFaqSectionQuery({});
   const { data } = useGetAllFaqQuery({});
-  const faqs = data?.faqs;
+  const faqs = data?.data;
   const section = sectionData?.data;
 
   const handelToggleFAQ = (i: number) => {

@@ -12,7 +12,8 @@ export default function Footer() {
       <div className="container">
         <div className="sm:flex sm:items-center sm:justify-between">
           <span className="text-sm text-gray-300">
-            Copyright© 2025 landing page. All Rights Reserved. develop by{" "}
+            Copyright© 2025 {business?.companyName}. All Rights Reserved.
+            develop by{" "}
             <Link
               to="https://emanagerit.com"
               target="_blank"
